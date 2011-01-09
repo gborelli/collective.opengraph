@@ -1,0 +1,10 @@
+<meta property="og:title"
+    tal:attributes="content view/title"/>
+<meta property="og:url"
+    tal:attributes="content context/absolute_url"/>
+<meta property="og:image"
+    tal:attributes="content view/image_url"/>
+<meta property="og:site_name"
+    tal:attributes="content view/sitename"/>
+<meta property="og:description"
+    tal:attributes="content view/description" />
