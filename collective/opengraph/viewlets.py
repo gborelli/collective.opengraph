@@ -3,6 +3,7 @@ from Acquisition import aq_inner
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 from plone.app.layout.viewlets import ViewletBase
 
+IMG_SIZE = 'thumb'
 HAS_LEADIMAGE = True
 try:
     from collective.contentleadimage.config import IMAGE_FIELD_NAME
@@ -18,7 +19,7 @@ def decode_str(val, encoding):
 
 class OGPViewlet(ViewletBase):
     template = ViewPageTemplateFile('ogpviewlet.pt')
-    img_size = 'thumb'
+    img_size = IMG_SIZE
 
     def render(self):
         return self.template()

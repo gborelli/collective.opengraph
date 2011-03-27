@@ -10,7 +10,7 @@
 
   <genericsetup:registerProfile
       name="default"
-      title="collective.opengraph"
+      title="Collective Opengraph"
       directory="profiles/default"
       description="Installs the collective.opengraph package"
       provides="Products.GenericSetup.interfaces.EXTENSION"
@@ -18,8 +18,9 @@
 
   <browser:viewlet
     name="collective.opengraph.meta"
-    manager="plone.app.layout.viewlets.interfaces.IHtmlHeadLinks"
+    manager = "plone.app.layout.viewlets.interfaces.IHtmlHeadLinks"
     class=".viewlets.OGPViewlet"
+    layer = ".interfaces.IBrowserLayer"
     permission="zope2.View"
     />
 
