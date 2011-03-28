@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<registry>
+    <records interface="collective.opengraph.interfaces.IOpengraphSettings">
+        <value key="types" purge="false">
+            <element>activity</element>
+            <element>sport</element>
+            <element>bar</element>
+            <element>company</element>
+            <element>cafe</element>
+            <element>hotel</element>
+            <element>restaurant</element>
+            <element>cause</element>
+            <element>sports_league</element>
+            <element>sports_team</element>
+            <element>band</element>
+            <element>government</element>
+            <element>non_profit</element>
+            <element>school</element>
+            <element>university</element>
+            <element>actor</element>
+            <element>athlete</element>
+            <element>author</element>
+            <element>director</element>
+            <element>musician</element>
+            <element>politician</element>
+            <element>public_figure</element>
+            <element>city</element>
+            <element>country</element>
+            <element>landmark</element>
+            <element>state_province</element>
+            <element>album</element>
+            <element>book</element>
+            <element>drink</element>
+            <element>food</element>
+            <element>game</element>
+            <element>product</element>
+            <element>song</element>
+            <element>movie</element>
+            <element>tv_show</element>
+            <element>blog</element>
+            <element>website</element>
+            <element>article</element>
+        </value>
+    </records>
+</registry>

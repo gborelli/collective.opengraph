@@ -8,3 +8,6 @@
     tal:attributes="content view/sitename"/>
 <meta property="og:description"
     tal:attributes="content view/description" />
+<meta property="og:type"
+    tal:condition="view/content_type"
+    tal:attributes="content view/content_type"/>

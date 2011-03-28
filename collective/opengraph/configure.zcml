@@ -8,20 +8,55 @@
 
   <!-- <five:registerPackage package="." initialize=".initialize" /> -->
 
+  <include package="plone.app.registry" />
+
   <genericsetup:registerProfile
-      name="default"
-      title="Collective Opengraph"
-      directory="profiles/default"
-      description="Installs the collective.opengraph package"
-      provides="Products.GenericSetup.interfaces.EXTENSION"
-      />
+    name="default"
+    title="Collective Opengraph"
+    directory="profiles/default"
+    description="Installs the collective.opengraph package"
+    provides="Products.GenericSetup.interfaces.EXTENSION"
+    />
 
   <browser:viewlet
     name="collective.opengraph.meta"
+    for = ".interfaces.IOpengraphable"
     manager = "plone.app.layout.viewlets.interfaces.IHtmlHeadLinks"
     class=".viewlets.OGPViewlet"
     layer = ".interfaces.IBrowserLayer"
     permission="zope2.View"
     />
+
+  <utility
+    component=".vocabularies.opengraphTypesVocab"
+    name="collective.opengraph.types"
+    provides="zope.app.schema.vocabulary.IVocabularyFactory"
+    />
+
+  <browser:page
+    name="opengraph_enabled"
+    layer=".interfaces.IBrowserLayer"
+    for = "*"
+    class=".browser.OpengraphEnabled"
+    permission="zope2.View"
+    allowed_attributes="is_opengraph_enabled"
+    />
+
+  <browser:page
+    name="disable_opengraph"
+    layer=".interfaces.IBrowserLayer"
+    for = "*"
+    class=".browser.DisableOpengraph"
+    permission="cmf.ModifyPortalContent"
+    />
+
+  <browser:page
+    name="enable_opengraph"
+    layer=".interfaces.IBrowserLayer"
+    for = "*"
+    class=".browser.EnableOpengraph"
+    permission="cmf.ModifyPortalContent"
+    />
+
 
 </configure>

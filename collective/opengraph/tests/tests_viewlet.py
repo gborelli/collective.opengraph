@@ -1,17 +1,24 @@
 # -*- coding: utf-8 -*-
 import unittest2 as unittest
+
 from zope.component import queryMultiAdapter
+from zope.component import getUtility
 from zope.component import getAdapters
 from zope.interface import directlyProvides
+from zope.interface import alsoProvides
 from zope.viewlet.interfaces import IViewletManager, IViewlet
 
 from Products.Five.browser import BrowserView
-from plone.browserlayer import utils
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 
+from plone.registry.interfaces import IRegistry
+
 from collective.opengraph.interfaces import IBrowserLayer
+from collective.opengraph.interfaces import IOpengraphSettings
+from collective.opengraph.interfaces import IOpengraphable
 from collective.opengraph.viewlets import IMG_SIZE
+
 from layer import OPENGRAPH_INTEGRATION_TESTING
 
 
@@ -21,6 +28,13 @@ NEWS_DESCRIPTION = u"Document news"
 DOCUMENT_TITLE = u"Test Document"
 DOCUMENT_DESCRIPTION = u"Document description"
 
+
+VIEWLET_HTML = """<meta property="og:title" content="%(title)s" />
+<meta property="og:url" content="%(url)s" />
+<meta property="og:image" content="%(image)s" />
+<meta property="og:site_name" content="%(site_name)s" />
+<meta property="og:description" content="%(description)s" />
+"""
 
 def loadImage(name, size=0):
     """Load image from testing directory
@@ -47,9 +61,11 @@ class OpenGraphViewletTests(unittest.TestCase):
         doc_id = self.portal.invokeFactory('Document', 'test_document',
                     title=DOCUMENT_TITLE, description= DOCUMENT_DESCRIPTION)
         self.document = self.portal[doc_id]
+        alsoProvides(self.document, IOpengraphable)
         news_id = self.portal.invokeFactory('News Item', 'test_news',
                     title=NEWS_TITLE, description= NEWS_DESCRIPTION)
         self.news = self.portal[news_id]
+        alsoProvides(self.news, IOpengraphable)
         setRoles(self.portal, TEST_USER_ID, ['Member'])
 
     def _get_viewlets(self, context, manager_name):
@@ -63,10 +79,11 @@ class OpenGraphViewletTests(unittest.TestCase):
             viewlets_dict[name] = viewlet
         return viewlets_dict
 
-    def testBrowserLayer(self):
-        self.assertTrue(IBrowserLayer in utils.registered_layers())
-
     def testViewlet(self):
+        viewlets = self._get_viewlets(self.portal, 'plone.htmlhead.links')
+        self.assertFalse(VIEWLET_NAME in viewlets.keys())
+
+        alsoProvides(self.portal, IOpengraphable)
         viewlets = self._get_viewlets(self.portal, 'plone.htmlhead.links')
         self.assertTrue(VIEWLET_NAME in viewlets.keys())
 
@@ -76,16 +93,12 @@ class OpenGraphViewletTests(unittest.TestCase):
         opengraph_viewlet.update()
         html = opengraph_viewlet.render()
 
-        self.assertTrue(u'<meta property="og:title" content="%s" />' \
-                                        % DOCUMENT_TITLE in html)
-        self.assertTrue(u'<meta property="og:url" content="%s" />' \
-                                        % self.document.absolute_url() in html)
-        self.assertTrue(u'<meta property="og:image" content="%s/logo.jpg" />' \
-                                        % self.portal.absolute_url() in html)
-        self.assertTrue(u'<meta property="og:site_name" content="%s" />' \
-                                        % self.portal.Title() in html)
-        self.assertTrue(u'<meta property="og:description" content="%s" />' \
-                                        % DOCUMENT_DESCRIPTION in html)
+        params = {'title': DOCUMENT_TITLE,
+                  'url': self.document.absolute_url(),
+                  'image': "%s/logo.jpg" % self.portal.absolute_url(),
+                  'site_name': self.portal.Title(),
+                  'description': DOCUMENT_DESCRIPTION}
+        self.assertEquals(VIEWLET_HTML % params, html)
 
     def testNewsViewlet(self):
         viewlets = self._get_viewlets(self.news, 'plone.htmlhead.links')
@@ -93,16 +106,12 @@ class OpenGraphViewletTests(unittest.TestCase):
         opengraph_viewlet.update()
         html = opengraph_viewlet.render()
 
-        self.assertTrue(u'<meta property="og:title" content="%s" />' \
-                                        % NEWS_TITLE in html)
-        self.assertTrue(u'<meta property="og:url" content="%s" />' \
-                                        % self.news.absolute_url() in html)
-        self.assertTrue(u'<meta property="og:image" content="%s/logo.jpg" />' \
-                                        % self.portal.absolute_url() in html)
-        self.assertTrue(u'<meta property="og:site_name" content="%s" />' \
-                                        % self.portal.Title() in html)
-        self.assertTrue(u'<meta property="og:description" content="%s" />' \
-                                        % NEWS_DESCRIPTION in html)
+        params = {'title': NEWS_TITLE,
+                  'url': self.news.absolute_url(),
+                  'image': "%s/logo.jpg" % self.portal.absolute_url(),
+                  'site_name': self.portal.Title(),
+                  'description': NEWS_DESCRIPTION}
+        self.assertEquals(VIEWLET_HTML % params, html)
 
     def testNewsImageViewlet(self):
         # we set an image in News Item
@@ -114,9 +123,32 @@ class OpenGraphViewletTests(unittest.TestCase):
         opengraph_viewlet.update()
         html = opengraph_viewlet.render()
 
-        self.assertTrue(
-                u'<meta property="og:image" content="%s/image_%s" />' \
-                    % (self.news.absolute_url(), IMG_SIZE) in html)
+        params = {'title': NEWS_TITLE,
+                  'url': self.news.absolute_url(),
+                  'image': "%s/image_%s" % (self.news.absolute_url(), IMG_SIZE),
+                  'site_name': self.portal.Title(),
+                  'description': NEWS_DESCRIPTION}
+        self.assertEquals(VIEWLET_HTML % params, html)
+
+    def testDefaultTypeViewlet(self):
+        default_type = 'article'
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(IOpengraphSettings)
+        settings.default_type = default_type
+
+        viewlets = self._get_viewlets(self.document, 'plone.htmlhead.links')
+        opengraph_viewlet = viewlets[VIEWLET_NAME]
+        opengraph_viewlet.update()
+        html = opengraph_viewlet.render()
+
+        params = {'title': DOCUMENT_TITLE,
+                  'url': self.document.absolute_url(),
+                  'image': "%s/logo.jpg" % self.portal.absolute_url(),
+                  'site_name': self.portal.Title(),
+                  'description': DOCUMENT_DESCRIPTION}
+        type_html = '<meta property="og:type" content="%s" />' % 'article'
+
+        self.assertEquals(''.join((VIEWLET_HTML % params, type_html)), html)
 
 
 def test_suite():

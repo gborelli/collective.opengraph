@@ -1,7 +1,11 @@
 from Acquisition import aq_inner
-
+from zope.component import getUtility
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
+
 from plone.app.layout.viewlets import ViewletBase
+from plone.registry.interfaces import IRegistry
+
+from collective.opengraph.interfaces import IOpengraphSettings
 
 IMG_SIZE = 'thumb'
 HAS_LEADIMAGE = True
@@ -23,6 +27,11 @@ class OGPViewlet(ViewletBase):
 
     def render(self):
         return self.template()
+
+    @property
+    def settings(self):
+        registry = getUtility(IRegistry)
+        return registry.forInterface(IOpengraphSettings)
 
     @property
     def default_charset(self):
@@ -55,9 +64,14 @@ class OGPViewlet(ViewletBase):
 
     @property
     def title(self):
-        return  decode_str(self.context.Title(), self.default_charset)
+        return decode_str(self.context.Title(), self.default_charset)
 
     @property
     def sitename(self):
         sitename = self.portal_state.portal().Title()
         return decode_str(sitename, self.default_charset)
+    
+    @property
+    def content_type(self):
+        default_type = self.settings.default_type or ''
+        return decode_str(default_type, self.default_charset)

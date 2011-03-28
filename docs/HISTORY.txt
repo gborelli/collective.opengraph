@@ -4,4 +4,9 @@ Changelog
 0.1dev (unreleased)
 -------------------
 
-- Initial release
+- added action to (un)mark 'IOpengraphable' content types
+- added translations
+- registered viewlet for 'IOpengraphable' content types
+- added og:type meta tag
+- added default configurations in IRegistry
+- first release
