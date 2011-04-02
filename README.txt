@@ -1,8 +1,6 @@
 collective.opengraph
 ====================
 
-This package provides a simple viewlet with opengraph metatag to Plone Content types.
-
 Questo pacchetto fornisce una semplice viewlet che visualizza i meta tag opengraph per i contenuti Plone.
 
 I meta tag supportati sono i seguenti:
@@ -12,7 +10,11 @@ I meta tag supportati sono i seguenti:
 * og:description descrizione della pagina
 * og:image immagine relativa al contenuto (es. image_thumb per News Item o l'immagine fornita da collective.contentleadimage)
 
+da pannello di controllo è possibile scegliere i contenuti che possono avere tali meta tag
+- la categoria di default
+- aggiungere o rimuovere categorie
+
+
 TODO
-====
-- selezionare i tipi di contenuto taggati
-- inibire i tag su alcuni contenuti
+----
+Permettere di cambiare la categoria per singolo contenuto atschemaextender/subjects
