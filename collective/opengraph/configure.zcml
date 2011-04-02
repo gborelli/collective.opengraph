@@ -58,5 +58,29 @@
     permission="cmf.ModifyPortalContent"
     />
 
+  <browser:page
+      name="collectiveopengraph-controlpanel"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      class=".browser.OpengraphControlpanel"
+      layer=".interfaces.IBrowserLayer"
+      permission = "cmf.ManagePortal"
+      />
+
+  <adapter
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      provides=".interfaces.IOpengraphSettings"
+      factory=".utils.opengraph_settings"
+      />
+
+  <!-- Adapter to mark object with interface -->
+  <adapter
+      for="Products.ATContentTypes.interface.interfaces.IATContentType"
+      factory=".utils.OpengraphMarker"
+      provides=".interfaces.IOpengraphMarker"
+      />
+
+  <subscriber
+     handler=".events.updateOpengraphableObjects"
+     for=".events.IOpengraphSettingsEvent" />
 
 </configure>

@@ -14,7 +14,7 @@ from collective.opengraph.interfaces import IOpengraphSettings
 from layer import OPENGRAPH_INTEGRATION_TESTING
 
 
-SETTINGS_PROPS = ['default_type', 'types', 'content_types']
+SETTINGS_PROPS = ['default_type', 'types'] #, 'content_types']
 
 
 class OpenGraphSetupTests(unittest.TestCase):

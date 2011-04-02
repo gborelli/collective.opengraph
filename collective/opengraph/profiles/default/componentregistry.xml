@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<componentregistry>
+ <adapters/>
+ <utilities>
+  <utility
+     interface="collective.opengraph.interfaces.IOpengraphMarkerUtility"
+     factory="collective.opengraph.utils.OpengraphMarkerUtility" />
+ </utilities>
+</componentregistry>

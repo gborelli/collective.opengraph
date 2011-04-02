@@ -37,8 +37,15 @@ class IOpengraphSettings(Interface):
     content_types = schema.List(
         title = _(u'Content types'),
         required = False,
-        default = ['Document', 'News', 'Event'],
         description = _(u"A list of types which can be tagged "
                          "by opengraph metatag"),
         value_type = schema.Choice(title=_(u"Content types"),
                     source="plone.app.vocabularies.ReallyUserFriendlyTypes"))
+
+
+class IOpengraphMarkerUtility(Interface):
+    pass
+
+class IOpengraphMarker(Interface):
+    pass
+
