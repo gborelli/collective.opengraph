@@ -15,5 +15,5 @@
     tal:condition="view/admins"
     tal:attributes="content view/admins"/>
 <meta property="fb:app_id"
-    tal:condition="view/content_type"
-    tal:attributes="content view/content_type"/>
+    tal:condition="view/app_id"
+    tal:attributes="content view/app_id"/>
