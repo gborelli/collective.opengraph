@@ -19,6 +19,14 @@ class IOpengraphSettings(Interface):
     """Opengraph default settings
     """
 
+    app_id = schema.TextLine(
+            title=_(u"Facebook app id"),
+            required=False)
+    
+    admins = schema.TextLine(
+            title=_(u"Admins"),
+            required = False)
+
     default_type = schema.Choice(
             title= _(u"Default type"),
             description = _(u"A default opengraph type metatag"),

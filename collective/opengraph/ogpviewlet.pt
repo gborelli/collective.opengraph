@@ -11,3 +11,9 @@
 <meta property="og:type"
     tal:condition="view/content_type"
     tal:attributes="content view/content_type"/>
+<meta property="fb:admins"
+    tal:condition="view/admins"
+    tal:attributes="content view/admins"/>
+<meta property="fb:app_id"
+    tal:condition="view/content_type"
+    tal:attributes="content view/content_type"/>

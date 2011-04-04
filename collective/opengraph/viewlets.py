@@ -75,3 +75,13 @@ class OGPViewlet(ViewletBase):
     def content_type(self):
         default_type = self.settings.default_type or ''
         return decode_str(default_type, self.default_charset)
+
+    @property
+    def admins(self):
+        admins = self.settings.admins or ''
+        return decode_str(admins, self.default_charset)
+
+    @property
+    def app_id(self):
+        appid = self.settings.app_id or ''
+        return decode_str(appid, self.default_charset)
