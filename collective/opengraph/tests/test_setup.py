@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest2 as unittest
 from zope.schema.vocabulary import SimpleVocabulary
-from zope.app.schema.vocabulary import IVocabularyFactory
+from zope.schema.interfaces import IVocabularyFactory
 from zope.component import getUtility
 from zope.component import queryUtility
 
@@ -14,7 +14,7 @@ from collective.opengraph.interfaces import IOpengraphSettings
 from layer import OPENGRAPH_INTEGRATION_TESTING
 
 
-SETTINGS_PROPS = ['default_type', 'types'] #, 'content_types']
+SETTINGS_PROPS = ['default_type', 'types']  # , 'content_types']
 
 
 class OpenGraphSetupTests(unittest.TestCase):
@@ -38,7 +38,7 @@ class OpenGraphSetupTests(unittest.TestCase):
         vocabulary = vocabulary(None)
         self.assertTrue(isinstance(vocabulary, SimpleVocabulary))
 
-        terms = ['website','article']
+        terms = ['website', 'article']
         for item in terms:
             self.assertEquals(vocabulary.getTerm(item).value, item)
 
@@ -46,7 +46,7 @@ class OpenGraphSetupTests(unittest.TestCase):
         settings = self._registry.forInterface(IOpengraphSettings)
         for prop in SETTINGS_PROPS:
             self.assertTrue(hasattr(settings, prop))
-        
+
         self.assertEquals(len(settings.types), 38)
 
 

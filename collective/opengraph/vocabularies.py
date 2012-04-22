@@ -1,8 +1,7 @@
+from zope.interface import implementer
 from zope.component import getUtility
 from zope.schema.vocabulary import SimpleVocabulary
-from zope.interface import implementer
-
-from zope.app.schema.vocabulary import IVocabularyFactory
+from zope.schema.interfaces import IVocabularyFactory
 
 from plone.registry.interfaces import IRegistry
 from interfaces import IOpengraphSettings

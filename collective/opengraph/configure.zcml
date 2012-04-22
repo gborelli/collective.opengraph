@@ -30,7 +30,7 @@
   <utility
     component=".vocabularies.opengraphTypesVocab"
     name="collective.opengraph.types"
-    provides="zope.app.schema.vocabulary.IVocabularyFactory"
+    provides="zope.schema.interfaces.IVocabularyFactory"
     />
 
   <browser:page
