@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<layers>
+    <layer name="collective.opengraph" 
+           interface="collective.opengraph.interfaces.IBrowserLayer" />
+</layers>
+

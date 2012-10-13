@@ -1,0 +1,86 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="collective.opengraph">
+
+  <!-- <five:registerPackage package="." initialize=".initialize" /> -->
+
+  <include package="plone.app.registry" />
+
+  <genericsetup:registerProfile
+    name="default"
+    title="Collective Opengraph"
+    directory="profiles/default"
+    description="Installs the collective.opengraph package"
+    provides="Products.GenericSetup.interfaces.EXTENSION"
+    />
+
+  <browser:viewlet
+    name="collective.opengraph.meta"
+    for = ".interfaces.IOpengraphable"
+    manager = "plone.app.layout.viewlets.interfaces.IHtmlHeadLinks"
+    class=".viewlets.OGPViewlet"
+    layer = ".interfaces.IBrowserLayer"
+    permission="zope2.View"
+    />
+
+  <utility
+    component=".vocabularies.opengraphTypesVocab"
+    name="collective.opengraph.types"
+    provides="zope.schema.interfaces.IVocabularyFactory"
+    />
+
+  <browser:page
+    name="opengraph_enabled"
+    layer=".interfaces.IBrowserLayer"
+    for = "*"
+    class=".browser.OpengraphEnabled"
+    permission="zope2.View"
+    allowed_attributes="is_opengraph_enabled"
+    />
+
+  <browser:page
+    name="disable_opengraph"
+    layer=".interfaces.IBrowserLayer"
+    for = "*"
+    class=".browser.DisableOpengraph"
+    permission="cmf.ModifyPortalContent"
+    />
+
+  <browser:page
+    name="enable_opengraph"
+    layer=".interfaces.IBrowserLayer"
+    for = "*"
+    class=".browser.EnableOpengraph"
+    permission="cmf.ModifyPortalContent"
+    />
+
+  <browser:page
+      name="collectiveopengraph-controlpanel"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      class=".browser.OpengraphControlpanel"
+      layer=".interfaces.IBrowserLayer"
+      permission = "cmf.ManagePortal"
+      />
+
+  <adapter
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      provides=".interfaces.IOpengraphSettings"
+      factory=".utils.opengraph_settings"
+      />
+
+  <!-- Adapter to mark object with interface -->
+  <adapter
+      for="Products.ATContentTypes.interface.interfaces.IATContentType"
+      factory=".utils.OpengraphMarker"
+      provides=".interfaces.IOpengraphMarker"
+      />
+
+  <subscriber
+     handler=".events.updateOpengraphableObjects"
+     for=".events.IOpengraphSettingsEvent" />
+
+</configure>

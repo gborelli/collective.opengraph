@@ -1,0 +1,91 @@
+# collective.geo.mapwidget
+# Giorgio Borelli <giorgio@giorgioborelli.it>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.1\n"
+"POT-Creation-Date: 2011-04-02 14:52+0000\n"
+"PO-Revision-Date: 2011-03-28  22:31+0000\n"
+"Last-Translator: Giorgio Borelli <giorgio@giorgioborelli.it>\n"
+"Language-Team: Giorgio Borelli <giorgio@giorgioborelli.it>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: it\n"
+"Language-Name: Italian\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: collective.opengraph\n"
+"X-Is-Fallback-For: it-it it-ch it-sm it-hr it-si\n"
+
+#: ./interfaces.py:24
+msgid "A default opengraph type metatag"
+msgstr "Type metatag di default"
+
+#: ./interfaces.py:33
+msgid "A list of types which can be selected for opengraph type metatag"
+msgstr "Una lista di tipi che possono essere selezionati per il meta tag type"
+
+#: ./interfaces.py:41
+msgid "A list of types which can be tagged by opengraph metatag"
+msgstr "Una lista di contenuti che possono essere classificati con i meta tag di opengraph"
+
+#: ./browser.py:63
+msgid "Apply"
+msgstr ""
+
+#: ./browser.py:82
+msgid "Cancel"
+msgstr ""
+
+#: ./browser.py:57
+msgid "Configure Collective Opengraph"
+msgstr ""
+
+#: ./interfaces.py:38
+msgid "Content types"
+msgstr "Tipi di Contenuto"
+
+#: ./browser.py:51
+msgid "Data successfully updated."
+msgstr ""
+
+#: ./interfaces.py:23
+msgid "Default type"
+msgstr "Default"
+
+#: ./profiles/default/actions.xml
+msgid "Disable Opengraph"
+msgstr ""
+
+#: ./profiles/default/actions.xml
+msgid "Disable Opengraph meta tags for this item"
+msgstr ""
+
+#: ./profiles/default/actions.xml
+msgid "Enable Opengraph"
+msgstr ""
+
+#: ./profiles/default/actions.xml
+msgid "Enable Opengraph meta tags for this item"
+msgstr ""
+
+#: ./browser.py:52
+msgid "No changes were applied."
+msgstr ""
+
+#: ./browser.py:26
+msgid "The opengraph tags has been disabled"
+msgstr ""
+
+#: ./browser.py:17
+msgid "The opengraph tags has been enabled"
+msgstr ""
+
+#: ./browser.py:53
+msgid "There were some errors."
+msgstr ""
+
+#: ./interfaces.py:30
+msgid "Type of contents"
+msgstr "Tipi di contenuti"
+

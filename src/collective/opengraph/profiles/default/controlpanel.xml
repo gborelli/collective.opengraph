@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<object name="portal_controlpanel">
+ <configlet title="Collective Opengraph" action_id="collective.geo.opengraph"
+            appId="collective.geo.opengraph" category="Products" condition_expr=""
+            url_expr="string:$portal_url/@@collectiveopengraph-controlpanel"
+            icon_expr="string:$portal_url/++resource++collectiveopengraph.png"
+            visible="True">
+     <permission>Manage portal</permission>
+ </configlet>
+</object>
