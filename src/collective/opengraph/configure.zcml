@@ -16,6 +16,12 @@
     provides="Products.GenericSetup.interfaces.EXTENSION"
     />
 
+  <browser:resource
+        name="collectiveopengraph.png"
+        image="facebook.png"
+        layer=".interfaces.IBrowserLayer"
+        />
+
   <browser:viewlet
     name="collective.opengraph.meta"
     for = ".interfaces.IOpengraphable"
