@@ -6,8 +6,6 @@
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     i18n_domain="collective.opengraph">
 
-  <!-- <five:registerPackage package="." initialize=".initialize" /> -->
-
   <include package="plone.app.registry" />
 
   <genericsetup:registerProfile
