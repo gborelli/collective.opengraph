@@ -4,11 +4,11 @@ collective.opengraph
 This package is a part of the Plone's collective.fg bundle. It adds the opengraph metadata to your HTML head section.
 
 Supported metadata:
-* og:site_name name of the site
-* og:url url of the webpage
-* og:title title of the webpage
-* og:description description of the webpage
-* og:image your webpage image (either 'image' field of your context or collective.contentleadimage one)
+ * og:site_name name of the site
+ * og:url url of the webpage
+ * og:title title of the webpage
+ * og:description description of the webpage
+ * og:image your webpage image (either 'image' field of your context or collective.contentleadimage one)
 
 from the control panel you can manage following settings:
 - the default og:type 
