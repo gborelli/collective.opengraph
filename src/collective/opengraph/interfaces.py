@@ -11,8 +11,24 @@ class IBrowserLayer(IDefaultPloneLayer):
 
 
 class IOpengraphable(Interface):
-    """Marker interface for opengraph content types
     """
+    Marker interface for opengraph content types.
+    Used to render the head section og viewlet.
+    """
+
+class IOpengraphMetatags(Interface):
+    """
+    Returns opengraph metadata
+    """
+
+    metatags = schema.Dict(
+        title = _(u'List of opengraph metatags'),
+        required = True,
+        default = {},
+        description = _(u"A dict of opengraph metatags "
+                         "which will be used by the opengraph viewlet"),
+	key_type = schema.TextLine(title=u"Metatag name"),
+        value_type = schema.TextLine(title=u"Metatag value"))
 
 
 class IOpengraphSettings(Interface):
@@ -52,8 +68,9 @@ class IOpengraphSettings(Interface):
 
 
 class IOpengraphMarkerUtility(Interface):
-    pass
+    """Utility that handles the configurations."""
+
 
 class IOpengraphMarker(Interface):
-    pass
+    """Worker that marks with IOpengraphable interface."""
 

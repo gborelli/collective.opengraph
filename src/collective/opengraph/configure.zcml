@@ -22,7 +22,7 @@
     name="collective.opengraph.meta"
     for = ".interfaces.IOpengraphable"
     manager = "plone.app.layout.viewlets.interfaces.IHtmlHeadLinks"
-    class=".viewlets.OGPViewlet"
+    class=".viewlets.OGViewlet"
     layer = ".interfaces.IBrowserLayer"
     permission="zope2.View"
     />
@@ -77,6 +77,12 @@
       for="Products.ATContentTypes.interface.interfaces.IATContentType"
       factory=".utils.OpengraphMarker"
       provides=".interfaces.IOpengraphMarker"
+      />
+
+  <adapter
+      for="Products.ATContentTypes.interface.interfaces.IATContentType"
+      factory=".viewlets.ATMetatags"
+      provides=".interfaces.IOpengraphMetatags"
       />
 
   <subscriber

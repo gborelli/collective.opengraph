@@ -27,14 +27,8 @@ NEWS_TITLE = u"Test News"
 NEWS_DESCRIPTION = u"Document news"
 DOCUMENT_TITLE = u"Test Document"
 DOCUMENT_DESCRIPTION = u"Document description"
+VIEWLET_HTML = """<meta property="og:title" content="%(title)s" /><meta property="og:url" content="%(url)s" /><meta property="og:image" content="%(image)s" /><meta property="og:site_name" content="%(site_name)s" /><meta property="og:description" content="%(description)s" />"""
 
-
-VIEWLET_HTML = """<meta property="og:title" content="%(title)s" />
-<meta property="og:url" content="%(url)s" />
-<meta property="og:image" content="%(image)s" />
-<meta property="og:site_name" content="%(site_name)s" />
-<meta property="og:description" content="%(description)s" />
-"""
 
 def loadImage(name, size=0):
     """Load image from testing directory

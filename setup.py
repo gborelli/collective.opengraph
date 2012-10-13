@@ -27,9 +27,9 @@ setup(name='collective.opengraph',
       zip_safe=False,
       install_requires=[
           'setuptools',
+          'ordereddict',
           # -*- Extra requirements: -*-
       ],
-      tests_require=tests_require,
       extras_require=dict(test=tests_require),
       entry_points="""
       # -*- Entry points: -*-

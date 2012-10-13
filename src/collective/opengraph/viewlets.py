@@ -1,11 +1,13 @@
 from Acquisition import aq_inner
+from zope.interface import implements
 from zope.component import getUtility
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
+from ordereddict import OrderedDict
 
 from plone.app.layout.viewlets import ViewletBase
 from plone.registry.interfaces import IRegistry
 
-from collective.opengraph.interfaces import IOpengraphSettings
+from collective.opengraph.interfaces import IOpengraphSettings, IOpengraphMetatags
 
 IMG_SIZE = 'thumb'
 HAS_LEADIMAGE = True
@@ -21,12 +23,29 @@ def decode_str(val, encoding):
     return unicode(val, 'utf8')
 
 
-class OGPViewlet(ViewletBase):
-    template = ViewPageTemplateFile('ogpviewlet.pt')
+class LastUpdatedOrderedDict(OrderedDict):
+    'Store items in the order the keys were last added'
+
+    def __setitem__(self, key, value):
+        if key in self:
+            del self[key]
+        OrderedDict.__setitem__(self, key, value)
+
+
+class ATMetatags(object):
+
+    implements(IOpengraphMetatags)
     img_size = IMG_SIZE
 
-    def render(self):
-        return self.template()
+    def __init__(self, context):
+        self.context = context
+        self.portal_state = self.context.restrictedTraverse('@@plone_portal_state')
+
+    @property
+    def default_charset(self):
+        pt = self.context.restrictedTraverse('@@plone_tools')
+        portal_prop = pt.properties()
+        return portal_prop.site_properties.default_charset
 
     @property
     def settings(self):
@@ -34,10 +53,20 @@ class OGPViewlet(ViewletBase):
         return registry.forInterface(IOpengraphSettings)
 
     @property
-    def default_charset(self):
-        pt = self.context.restrictedTraverse('@@plone_tools')
-        portal_prop = pt.properties()
-        return portal_prop.site_properties.default_charset
+    def metatags(self):
+        tags = LastUpdatedOrderedDict()
+        tags.update([('og:title', self.title),
+                     ('og:url', self.context.absolute_url()),
+                     ('og:image', self.image_url),
+                     ('og:site_name', self.sitename),
+                     ('og:description', self.description)])
+	if self.content_type:
+            tags.update({'og:type' : self.content_type})
+        if self.admins:
+            tags.update({'fb:admins' : self.admins})
+        if self.app_id:
+            tags.update({'fb:app_id' : self.app_id})
+	return tags
 
     @property
     def image_url(self):
@@ -85,3 +114,14 @@ class OGPViewlet(ViewletBase):
     def app_id(self):
         appid = self.settings.app_id or ''
         return decode_str(appid, self.default_charset)
+
+
+class OGViewlet(ViewletBase):
+    template = ViewPageTemplateFile('ogviewlet.pt')
+
+    def render(self):
+        return self.template()
+
+    def metatags(self):
+        return IOpengraphMetatags(self.context).metatags.items()
+
