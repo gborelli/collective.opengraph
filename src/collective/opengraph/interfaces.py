@@ -39,6 +39,10 @@ class IOpengraphSettings(Interface):
             title=_(u"Facebook app id"),
             required=False)
     
+    api_key = schema.TextLine(
+            title=_(u"Facebook api key"),
+            required=False)
+
     admins = schema.TextLine(
             title=_(u"Admins"),
             required = False)
