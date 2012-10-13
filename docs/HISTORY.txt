@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.0 (unreleased)
+----------------
+
+ - refactored during PloneConf2012 sprint [amleczko]
+
 0.1dev (unreleased)
 -------------------
 
