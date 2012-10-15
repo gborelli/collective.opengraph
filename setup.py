@@ -6,7 +6,7 @@ tests_require = ['plone.app.testing']
 
 setup(name='collective.opengraph',
       version=version,
-      description="Plone opengraph",
+      description="Plone opengraph integration",
       long_description=open("README.rst").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       # Get more strings from
