@@ -6,8 +6,6 @@
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     i18n_domain="collective.opengraph">
 
-  <!-- <five:registerPackage package="." initialize=".initialize" /> -->
-
   <include package="plone.app.registry" />
 
   <genericsetup:registerProfile
@@ -18,11 +16,17 @@
     provides="Products.GenericSetup.interfaces.EXTENSION"
     />
 
+  <browser:resource
+        name="collectiveopengraph.png"
+        image="facebook.png"
+        layer=".interfaces.IBrowserLayer"
+        />
+
   <browser:viewlet
     name="collective.opengraph.meta"
     for = ".interfaces.IOpengraphable"
     manager = "plone.app.layout.viewlets.interfaces.IHtmlHeadLinks"
-    class=".viewlets.OGPViewlet"
+    class=".viewlets.OGViewlet"
     layer = ".interfaces.IBrowserLayer"
     permission="zope2.View"
     />
@@ -77,6 +81,12 @@
       for="Products.ATContentTypes.interface.interfaces.IATContentType"
       factory=".utils.OpengraphMarker"
       provides=".interfaces.IOpengraphMarker"
+      />
+
+  <adapter
+      for="Products.ATContentTypes.interface.interfaces.IATContentType"
+      factory=".viewlets.ATMetatags"
+      provides=".interfaces.IOpengraphMetatags"
       />
 
   <subscriber

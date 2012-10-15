@@ -7,6 +7,7 @@ from Products.Five import BrowserView
 from Products.CMFCore.utils import getToolByName
 
 from z3c.form import field, form, button
+from plone.z3cform.fieldsets import extensible
 from plone.z3cform.layout import wrap_form
 
 from interfaces import IOpengraphable
@@ -47,7 +48,7 @@ def back_to_controlpanel(self):
     return dict(url=root.absolute_url() + '/plone_control_panel')
 
 
-class OpengraphControlpanelForm(form.EditForm):
+class OpengraphControlpanelForm(extensible.ExtensibleForm, form.EditForm):
     successMessage = _(u'Data successfully updated.')
     noChangesMessage = _(u'No changes were applied.')
     formErrorsMessage = _(u"There were some errors.")
